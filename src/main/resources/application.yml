@@ -1,0 +1,32 @@
+logging: 
+  level:
+    com.example.demo: DEBUG
+    org.springframework: DEBUG
+  file: ${user.dir}/logs/app.log
+  
+spring:
+  profiles.active: dev
+---    
+spring:
+  profiles: dev 
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.99.100:3306/db
+    username: root
+    password: root
+  jpa: 
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+---
+spring:
+  profiles: prod 
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_PORT_3306_TCP_ADDR}:${MYSQL_PORT_3306_TCP_PORT}/${MYSQL_ENV_MYSQL_DATABASE}
+    username: ${MYSQL_ENV_MYSQL_USER}
+    password: ${MYSQL_ENV_MYSQL_PASSWORD}
+  jpa: 
+    hibernate:
+      ddl-auto: update
+    show-sql: true          
